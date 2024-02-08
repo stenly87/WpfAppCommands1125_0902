@@ -1,0 +1,47 @@
+﻿<Window x:Class="WpfAppCommands.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfAppCommands"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Window.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.Help" 
+                        Executed="CommandBindingHelp_Executed"/>
+    </Window.CommandBindings>
+    <StackPanel>
+        <StackPanel.CommandBindings>
+            <CommandBinding 
+             Command="ApplicationCommands.Save"
+             Executed="CommandBinding_Executed"
+             CanExecute="CommandBinding_CanExecute"
+            />
+        </StackPanel.CommandBindings>
+        <TextBox x:Name="txt1" Text="{Binding SomeText, UpdateSourceTrigger=PropertyChanged}"/>
+        <Button Content="Copy" 
+                Command="ApplicationCommands.Copy" 
+                CommandTarget="{Binding ElementName=txt1}"/>
+        <Button Content="Paste" 
+                Command="ApplicationCommands.Paste" 
+                CommandTarget="{Binding ElementName=txt2}"/>
+        <TextBox x:Name="txt2"/>
+
+        <Button Content="Need code to Save1"
+                Command="ApplicationCommands.Save"
+                CommandParameter="{Binding ElementName=txt1, Path=Text}"
+                CommandTarget="{Binding ElementName=txt1}"/>
+        <Button Content="Need code to Save2"
+                Command="ApplicationCommands.Save"
+                CommandParameter="{Binding ElementName=txt2, Path=Text}"
+                CommandTarget="{Binding ElementName=txt2}"/>
+        <Button Content="Help" Command="ApplicationCommands.Help"/>
+
+        <Button Content="Кастомная простая команда"
+                Command="{Binding Command1}"/>
+
+        <Button Content="Кастомная НЕпростая команда"
+                Command="{Binding Command2}"
+                CommandParameter="{Binding ElementName=txt1, Path=Text}"/>
+    </StackPanel>
+</Window>
